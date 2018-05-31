@@ -1,0 +1,11 @@
+/projects/workspace/src/ES.Tests/bin/Debug/netcoreapp2.1/ES.Tests.deps.json
+/projects/workspace/src/ES.Tests/bin/Debug/netcoreapp2.1/ES.Tests.runtimeconfig.json
+/projects/workspace/src/ES.Tests/bin/Debug/netcoreapp2.1/ES.Tests.runtimeconfig.dev.json
+/projects/workspace/src/ES.Tests/bin/Debug/netcoreapp2.1/ES.Tests.dll
+/projects/workspace/src/ES.Tests/bin/Debug/netcoreapp2.1/ES.Tests.pdb
+/projects/workspace/src/ES.Tests/obj/Debug/netcoreapp2.1/ES.Tests.csprojAssemblyReference.cache
+/projects/workspace/src/ES.Tests/obj/Debug/netcoreapp2.1/ES.Tests.csproj.CoreCompileInputs.cache
+/projects/workspace/src/ES.Tests/obj/Debug/netcoreapp2.1/ES.Tests.AssemblyInfoInputs.cache
+/projects/workspace/src/ES.Tests/obj/Debug/netcoreapp2.1/ES.Tests.AssemblyInfo.cs
+/projects/workspace/src/ES.Tests/obj/Debug/netcoreapp2.1/ES.Tests.dll
+/projects/workspace/src/ES.Tests/obj/Debug/netcoreapp2.1/ES.Tests.pdb

@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using ES.Tests.Tests;
 
 namespace ES.Tests
 {
@@ -6,7 +7,8 @@ namespace ES.Tests
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var simpleTest = new SimpleTest();
+            simpleTest.RunCreateIndexTest(); 
         }
     }
 }
