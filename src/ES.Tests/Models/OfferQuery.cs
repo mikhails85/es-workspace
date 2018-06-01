@@ -8,8 +8,7 @@ namespace ES.Tests.Models
 {
     public class OfferQuery
     {
-        public string Id { get; set; }
-
+        public string Id { get; set; }        
         public QueryContainer Query { get; set; }
     }
 }

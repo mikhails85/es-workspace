@@ -9,7 +9,7 @@ namespace ES.Tests
         protected string Index {get;}
         protected ElasticClient Client{get;}
         
-        protected ESStorage(string index )
+        protected ESStorage(string index)
         {
             this.Index = index;      
             var node = new Uri("http://localhost:9200");
@@ -17,14 +17,14 @@ namespace ES.Tests
             this.Client = new ElasticClient(settings);
         }
         
-        protected void RemoveIndex() 
+        protected void RemoveIndex(string index = null) 
         {
-             this.Client.DeleteIndex(this.Index);
+             this.Client.DeleteIndex(index ?? this.Index);
         }
         
-        protected bool IndexExists() 
+        protected bool IndexExists(string index = null) 
         {
-            return this.Client.IndexExists(this.Index).Exists;
+            return this.Client.IndexExists(index ?? this.Index).Exists;
         }                
         
         protected void PutDocument<T>(T doc) where T:class
@@ -37,9 +37,9 @@ namespace ES.Tests
             this.Client.Delete<T>(id);
         }
         
-        protected void AddToIndex<T>(T doc) where T:class
+        protected IIndexResponse AddToIndex<T>(T doc, string index = null) where T:class
         {
-            this.Client.Index(doc, d => d.Index(this.Index));    
+            return this.Client.Index(doc, d => d.Index(index ?? this.Index));    
         }        
     }
 }
