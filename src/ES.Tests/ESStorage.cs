@@ -39,7 +39,9 @@ namespace ES.Tests
         
         protected IIndexResponse AddToIndex<T>(T doc, string index = null) where T:class
         {
-            return this.Client.Index(doc, d => d.Index(index ?? this.Index));    
+            var response = this.Client.Index(doc, d => d.Index(index ?? this.Index));    
+            this.Client.Refresh(Nest.Indices.Index(this.Index));
+            return response;
         }        
     }
 }
