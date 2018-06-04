@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Dapper.Tests
 {
@@ -6,7 +6,15 @@ namespace Dapper.Tests
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+           // (new DapperRepository()).AddSkill("C#");
+            
+            var result = (new DapperRepository()).GetSkills();
+            
+            foreach(var skill in result)
+            {                
+                Console.WriteLine($"Name:{skill.Name}");
+            }
+            
         }
     }
 }

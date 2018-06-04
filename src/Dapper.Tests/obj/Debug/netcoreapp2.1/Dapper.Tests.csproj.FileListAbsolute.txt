@@ -1,0 +1,11 @@
+/projects/workspace/src/Dapper.Tests/obj/Debug/netcoreapp2.1/Dapper.Tests.csprojAssemblyReference.cache
+/projects/workspace/src/Dapper.Tests/obj/Debug/netcoreapp2.1/Dapper.Tests.csproj.CoreCompileInputs.cache
+/projects/workspace/src/Dapper.Tests/obj/Debug/netcoreapp2.1/Dapper.Tests.AssemblyInfoInputs.cache
+/projects/workspace/src/Dapper.Tests/obj/Debug/netcoreapp2.1/Dapper.Tests.AssemblyInfo.cs
+/projects/workspace/src/Dapper.Tests/bin/Debug/netcoreapp2.1/Dapper.Tests.deps.json
+/projects/workspace/src/Dapper.Tests/bin/Debug/netcoreapp2.1/Dapper.Tests.runtimeconfig.json
+/projects/workspace/src/Dapper.Tests/bin/Debug/netcoreapp2.1/Dapper.Tests.runtimeconfig.dev.json
+/projects/workspace/src/Dapper.Tests/bin/Debug/netcoreapp2.1/Dapper.Tests.dll
+/projects/workspace/src/Dapper.Tests/bin/Debug/netcoreapp2.1/Dapper.Tests.pdb
+/projects/workspace/src/Dapper.Tests/obj/Debug/netcoreapp2.1/Dapper.Tests.dll
+/projects/workspace/src/Dapper.Tests/obj/Debug/netcoreapp2.1/Dapper.Tests.pdb
