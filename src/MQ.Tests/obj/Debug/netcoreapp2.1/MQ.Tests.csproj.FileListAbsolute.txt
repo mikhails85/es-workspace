@@ -1,0 +1,11 @@
+/projects/workspace/src/MQ.Tests/bin/Debug/netcoreapp2.1/MQ.Tests.deps.json
+/projects/workspace/src/MQ.Tests/bin/Debug/netcoreapp2.1/MQ.Tests.runtimeconfig.json
+/projects/workspace/src/MQ.Tests/bin/Debug/netcoreapp2.1/MQ.Tests.runtimeconfig.dev.json
+/projects/workspace/src/MQ.Tests/bin/Debug/netcoreapp2.1/MQ.Tests.dll
+/projects/workspace/src/MQ.Tests/bin/Debug/netcoreapp2.1/MQ.Tests.pdb
+/projects/workspace/src/MQ.Tests/obj/Debug/netcoreapp2.1/MQ.Tests.csprojAssemblyReference.cache
+/projects/workspace/src/MQ.Tests/obj/Debug/netcoreapp2.1/MQ.Tests.csproj.CoreCompileInputs.cache
+/projects/workspace/src/MQ.Tests/obj/Debug/netcoreapp2.1/MQ.Tests.AssemblyInfoInputs.cache
+/projects/workspace/src/MQ.Tests/obj/Debug/netcoreapp2.1/MQ.Tests.AssemblyInfo.cs
+/projects/workspace/src/MQ.Tests/obj/Debug/netcoreapp2.1/MQ.Tests.dll
+/projects/workspace/src/MQ.Tests/obj/Debug/netcoreapp2.1/MQ.Tests.pdb
