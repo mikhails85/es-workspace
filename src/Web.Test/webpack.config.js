@@ -4,7 +4,7 @@ const bundleOutputDir = './wwwroot/dist';
 
 module.exports = {
  context: __dirname,
-  entry: { main: './App/index.js' },
+  entry: { main: './Client/index.js' },
   module: {
     rules: [
       {
