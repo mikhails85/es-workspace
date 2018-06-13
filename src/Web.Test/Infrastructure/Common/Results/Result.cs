@@ -5,7 +5,12 @@ using System.Web;
 
 namespace Web.Test.Infrastructure.Common.Results
 {
-    public class Result
+    public class Result<T> : VoidResult
     {
+        public override bool Success => Value != null && base.Success;
+
+        public T Value { get; private set; }
+
+        public void SetValue(T value) => Value = value;
     }
 }

@@ -28,7 +28,7 @@ namespace Web.Test.Infrastructure.Integration.MySQL
             query.Execute(this);
             return query;
         }
-        
+       
         public void Save()
         {
             try
