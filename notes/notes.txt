@@ -14,3 +14,7 @@ https://www.c-sharpcorner.com/article/introduction-to-dapper-generic-repository/
 https://www.codeproject.com/Articles/1186566/Dapper-Generic-Repository
 
 https://github.com/timschreiber/DapperUnitOfWork/blob/master/DapperUnitOfWork/UnitOfWork.cs
+
+https://forloop.co.uk/blog/optimistic-concurrency-with-elasticsearch-and-nest
+
+https://stackoverflow.com/questions/43814900/elasticsearch-update-with-versioning-nest-c

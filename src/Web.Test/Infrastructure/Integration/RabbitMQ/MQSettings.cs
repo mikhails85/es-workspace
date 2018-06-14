@@ -5,7 +5,8 @@ using System.Web;
 
 namespace Web.Test.Infrastructure.Integration.RabbitMQ
 {
-    public class Notifier
+    public class MQSettings
     {
+         public string Host {get;set;} 
     }
 }
