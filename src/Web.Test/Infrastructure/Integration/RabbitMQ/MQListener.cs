@@ -16,11 +16,9 @@ namespace Web.Test.Infrastructure.Integration.RabbitMQ
         
         private IConnection connection;        
         private IModel channel;
-        
-        public IModel Channel => channel;
+                
         public IQueueManager QueueManager {get;set;}
-        
-        
+                
         public MQListener(MQSettings settings, IQueueHandler handler)
         {
             this.settings = settings;
@@ -36,11 +34,15 @@ namespace Web.Test.Infrastructure.Integration.RabbitMQ
         public void Start()
         {
             var factory = new ConnectionFactory() { HostName = settings.Host };
-            this.connection = factory.CreateConnection();
-            this.channel = connection.CreateModel();
+            factory.AutomaticRecoveryEnabled = true;
+            factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
             
-            this.handler.OnStarting();
-                        
+            this.connection = factory.CreateConnection();
+            this.channel = connection.CreateModel();            
+            this.channel.BasicQos(prefetchSize: 0, prefetchCount: this.handler.PrefetchCount, global: false);
+
+            this.handler.OnStarting();                        
+            
             var consumer = new EventingBasicConsumer(this.channel);
             consumer.Received += (s,e)=>{                
                 var body = e.Body;
@@ -48,7 +50,17 @@ namespace Web.Test.Infrastructure.Integration.RabbitMQ
                 this.handler.HandleMessage(e.DeliveryTag, message);
             };     
             
-            this.handler.OnStarted();
+            this.channel.BasicConsume(this.handler.Queue, false, consumer);
+        }
+        
+        public void RejectMessage(ulong tag)
+        {
+            this.channel.BasicReject(tag, true);
+        }
+        
+        public void ConfirmMessage(ulong tag)
+        {
+            this.channel.BasicAck(tag, false);
         }
         
         public void Stop()

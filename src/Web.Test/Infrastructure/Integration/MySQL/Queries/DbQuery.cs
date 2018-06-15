@@ -11,7 +11,7 @@ namespace Web.Test.Infrastructure.Integration.MySQL.Queries
     public static class DbQuery
     {
         public static IDbTransaction GetTransaction(this IDbContext context)
-        {
+        {           
             if(!(context is UnitOfWork))
             {
                 throw new NotSupportedException("Context should be 'UnitOfWork' type"); 
