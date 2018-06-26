@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Web.Test.Infrastructure.Integration.Elastic
+namespace Web.Test.Infrastructure.Domain.Contracts.Integration
 {
-    public class IndexRepository
+    public interface IESQuery
     {
     }
 }

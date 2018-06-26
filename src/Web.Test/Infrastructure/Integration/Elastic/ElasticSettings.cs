@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Web.Test.Infrastructure.Integration.Elastic
 {
-    public class Analyzer
+    public class ElasticSettings
     {
     }
 }
