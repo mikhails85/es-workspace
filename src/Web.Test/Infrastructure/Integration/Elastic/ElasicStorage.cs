@@ -10,27 +10,26 @@ namespace Web.Test.Infrastructure.Integration.Elastic
     {
         private readonly ElasticSettings settings;
         
-        private readonly IDictionary<Type, IESIndex<TEntity>> resolvers;
+        private readonly IDictionary<Type, object> resolvers;
         
+        public ElasticSettings ConnectionSettings => this.settings;
+
         public ElasicStorage(ElasticSettings settings)
         {
             this.settings = settings;
-            this.resolvers = new Dictionary<Type, IESIndex<TEntity>>();
+            this.resolvers = new Dictionary<Type, object>();
             this.OnInitEEntityResolvers();      
         }
         
-        public virtual IESIndex<TEntity> Index => ResolveIndex<TEntity>();
-        
-        private IESIndex<TEntity> ResolveIndex<TEntity>()
+        public virtual IESIndex<TEntity> Get<TEntity>()
         {
-            var res = this.resolvers[typeof(TEntity)];
-            res.Configure(this);
-            return res;
+            var res = (Func<ElasicStorage,IESIndex<TEntity>>)this.resolvers[typeof(TEntity)];            
+            return res(this);
         }
         
         protected abstract void OnInitEEntityResolvers();      
         
-        protected virtual void Set<TEntity>(IESIndex<TEntity> resolver)
+        protected virtual void Set<TEntity>(Func<ElasicStorage,IESIndex<TEntity>> resolver)
         {
             this.resolvers.Add(typeof(TEntity), resolver);
         }

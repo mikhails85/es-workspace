@@ -7,5 +7,6 @@ namespace Web.Test.Infrastructure.Domain.Contracts.Integration
 {
     public interface IESStorage
     {
+        IESIndex<TEntity> Get<TEntity>();
     }
 }

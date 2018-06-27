@@ -18,3 +18,7 @@ https://github.com/timschreiber/DapperUnitOfWork/blob/master/DapperUnitOfWork/Un
 https://forloop.co.uk/blog/optimistic-concurrency-with-elasticsearch-and-nest
 
 https://stackoverflow.com/questions/43814900/elasticsearch-update-with-versioning-nest-c
+
+https://www.youtube.com/watch?v=WmBYF7xNLR8
+
+https://codenvy.com/docs-version/5.0.1/docs/user-guide/sync/index.html

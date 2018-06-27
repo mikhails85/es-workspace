@@ -5,7 +5,8 @@ using System.Web;
 
 namespace Web.Test.Infrastructure.Domain.Contracts.Integration
 {
-    public interface IESQuery
+    public interface IESQuery<TEntity>
     {
+        void Execute(IESIndex<TEntity> context);
     }
 }

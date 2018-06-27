@@ -7,8 +7,6 @@ namespace Web.Test.Infrastructure.Domain.Contracts.Integration
 {
     public interface IESIndex<TEntity>
     {
-        void Configure(IESStorage context);
-        
-        I
+        TQuery Query<TQuery>(TQuery query) where TQuery:IESQuery<TEntity>;
     }
 }
