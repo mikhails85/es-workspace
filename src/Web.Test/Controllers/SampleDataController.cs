@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Web.Test.Configuration;
+using Web.Test.Infrastructure.Domain.Contracts;
 
 namespace Web.Test.Controllers
 {
@@ -18,6 +20,8 @@ namespace Web.Test.Controllers
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
+            this.Service<ISkillManager>();
+
             var rng = new Random();
             var i = 1;
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

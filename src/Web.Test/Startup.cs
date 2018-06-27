@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Web.Test.Configuration;
 
 namespace Web.Test
 {
@@ -32,6 +33,7 @@ namespace Web.Test
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDependencyInjection(this.Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -56,6 +58,8 @@ namespace Web.Test
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseApiExtension();
 
             app.UseMvc(routes =>
             {
