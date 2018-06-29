@@ -2,10 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Web.Test.Infrastructure.Common.Results;
+using Web.Test.Infrastructure.Domain.Models;
 
 namespace Web.Test.Infrastructure.Domain.Contracts
 {
     public interface IOfferManager
     {
+        Result<IEnumerable<Offer>> GetList(int page, int size, string search);
+        Result<Offer> GetOffer(string id);
+        VoidResult AddOffer(Offer offer);
+        VoidResult UpdateOffer(string id, Offer offer);
+        VoidResult DeleteOffer(string id);
     }
 }
