@@ -15,41 +15,41 @@ namespace Web.Test.Controllers
         [HttpGet("[action]")]
         public IActionResult List(int page, int size, string search = null)
         {
-            return this.Result(this.Service<IEmployeeManager>().GetList(page, size, search));
+            return this.Result(this.Service<IEmployeeManager>().GetEmployeeList(page, size, search));
         }
 
         [HttpGet("{id}/[action]")]
-        public IActionResult GetProfile(string id)
+        public IActionResult GetEmployee(long id)
         {
-            return this.Result(this.Service<IEmployeeManager>().GetProfile(id));
+            return this.Result(this.Service<IEmployeeManager>().GetEmployee(id));
         }
 
         [HttpPost("[action]")]
-        public IActionResult AddProfile(Employee profile)
+        public IActionResult AddEmployee(Employee profile)
         {
-            return this.Result(this.Service<IEmployeeManager>().AddProfile(profile));
+            return this.Result(this.Service<IEmployeeManager>().AddEmployee(profile));
         }
 
         [HttpPut("{id}/[action]")]
-        public IActionResult UpdateProfile(string id, Employee profile)
+        public IActionResult UpdateEmployee(Employee profile)
         {
-            return this.Result(this.Service<IEmployeeManager>().UpdateProfile(id, profile));
+            return this.Result(this.Service<IEmployeeManager>().UpdateEmployee(profile));
         }
 
         [HttpDelete("{id}/[action]")]
-        public IActionResult DeleteProfile(string id)
+        public IActionResult DeleteEmployee(long id)
         {
-            return this.Result(this.Service<IEmployeeManager>().DeleteProfile(id));
+            return this.Result(this.Service<IEmployeeManager>().DeleteEmployee(id));
         }
 
         [HttpPost("{id}/[action]")]
-        public IActionResult AddProject(string id, Project project) 
+        public IActionResult AddProject(Project project) 
         {
-            return this.Result(this.Service<IEmployeeManager>().AddProject(id, project));
+            return this.Result(this.Service<IEmployeeManager>().AddProject(project));
         }
 
         [HttpDelete("{id}/[action]/{projectId}")]
-        public IActionResult DeleteProject(string id, string projectId) 
+        public IActionResult DeleteProject(long id, long projectId) 
         {
             return this.Result(this.Service<IEmployeeManager>().DeleteProject(id, projectId));
         }             

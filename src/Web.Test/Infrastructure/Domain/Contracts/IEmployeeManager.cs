@@ -9,12 +9,12 @@ namespace Web.Test.Infrastructure.Domain.Contracts
 {
     public interface IEmployeeManager
     {
-        Result<IEnumerable<Employee>> GetList(int page, int size, string search);
-        Result<Employee> GetProfile(string id);
-        VoidResult AddProfile(Employee profile);
-        VoidResult UpdateProfile(string id, Employee profile);
-        VoidResult DeleteProfile(string id);
-        VoidResult AddProject(string id, Project project);
-        VoidResult DeleteProject(string id, string projectId);
+        VoidResult AddEmployee(Employee profile);
+        VoidResult AddProject(Project project);
+        VoidResult DeleteEmployee(long id);
+        VoidResult DeleteProject(long id, long projectId);
+        VoidResult UpdateEmployee(Employee employee);
+        Result<Employee> GetEmployee(long id);
+        Result<IEnumerable<Employee>> GetEmployeeList(int page, int size, string search);
     }
 }

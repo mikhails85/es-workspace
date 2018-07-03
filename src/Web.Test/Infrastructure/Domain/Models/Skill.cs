@@ -7,5 +7,7 @@ namespace Web.Test.Infrastructure.Domain.Models
 {
     public class Skill
     {        
+        public long Id {get;set;}
+        public string Name {get;set;}
     }
 }

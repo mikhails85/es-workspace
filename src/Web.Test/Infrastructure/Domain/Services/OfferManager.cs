@@ -15,7 +15,7 @@ namespace Web.Test.Infrastructure.Domain.Services
             throw new NotImplementedException();
         }
 
-        public VoidResult DeleteOffer(string id)
+        public VoidResult DeleteOffer(long id)
         {
             throw new NotImplementedException();
         }
@@ -25,12 +25,12 @@ namespace Web.Test.Infrastructure.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Result<Offer> GetOffer(string id)
+        public Result<Offer> GetOffer(long id)
         {
             throw new NotImplementedException();
         }
 
-        public VoidResult UpdateOffer(string id, Offer offer)
+        public VoidResult UpdateOffer(Offer offer)
         {
             throw new NotImplementedException();
         }

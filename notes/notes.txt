@@ -22,3 +22,10 @@ https://stackoverflow.com/questions/43814900/elasticsearch-update-with-versionin
 https://www.youtube.com/watch?v=WmBYF7xNLR8
 
 https://codenvy.com/docs-version/5.0.1/docs/user-guide/sync/index.html
+
+https://ipfs.io/ipfs/QmVUvLMxTEaVBpiQBiBBdnv7ZTwt7pv8BxNhpPCMixuRBT/docs/app.html
+
+
+https://pro-gram.ru/password-grub2-ubuntu.html
+
+https://medium.com/dapper-net/multiple-mapping-d36c637d14fa

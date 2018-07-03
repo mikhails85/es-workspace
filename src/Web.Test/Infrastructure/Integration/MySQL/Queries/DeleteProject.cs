@@ -1,27 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Web.Test.Infrastructure.Domain.Contracts.Integration;
-using System.Data.SqlClient;
-using System.Data;
-using Web.Test.Infrastructure.Domain.Models;
+using System.Web;
 using Dapper;
 using Web.Test.Infrastructure.Common.Results;
 using Web.Test.Infrastructure.Common.Results.Errors;
+using Web.Test.Infrastructure.Domain.Contracts.Integration;
 
 namespace Web.Test.Infrastructure.Integration.MySQL.Queries
 {
-    public class GetAllSkills:Result<IEnumerable<Skill>>, IDbQuery
-    {                        
+    public class DeleteProject: VoidResult, IDbQuery
+    {
+        private readonly long projectId;
+
+        public DeleteProject(long projectId)
+        {
+            this.projectId = projectId;
+        }
+
         public void Execute(IDbContext context)
         {
             try
             {
                 var dbConnection = context.GetConnection();            
-                var result = dbConnection.Query<Skill>(
-                                "SELECT * FROM Skills"
-                            );            
-                base.SetValue(result);             
+                dbConnection.Execute("DELETE FROM Projects WHERE Id=@Id;", new {Id = projectId }); 
             }
             catch(Exception ex)
             {
