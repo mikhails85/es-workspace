@@ -16,6 +16,7 @@ namespace Web.Test.Infrastructure.Integration.Elastic
         protected override void OnInitEEntityResolvers()
         {
             this.Set(x=>new EmployeeIndex(x));
+            this.Set(x=>new OfferIndex(x));
         }
     }
 }

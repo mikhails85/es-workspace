@@ -5,6 +5,7 @@ using System.Web;
 using Nest;
 using Web.Test.Infrastructure.Domain.Contracts.Integration;
 using Web.Test.Infrastructure.Domain.Models;
+using Web.Test.Infrastructure.Integration.Elastic.Indexes.Models;
 
 namespace Web.Test.Infrastructure.Integration.Elastic.Indexes
 {
@@ -17,7 +18,22 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes
         }
         protected override void CreateIndex()
         {
-            throw new NotImplementedException();
+            var createIndexResponse = this.Client.CreateIndex(Index, c => c
+                .Settings(s => s
+                    .NumberOfShards(1)
+                    .NumberOfReplicas(0)
+                )
+                .Mappings(m => m                    
+                    .Map<ESEmployee>(mm => mm
+                        .AutoMap()
+                    )
+                )
+            );
+
+            if(!createIndexResponse.IsValid)
+            {
+                throw new Exception(createIndexResponse.DebugInformation);
+            }
         }
     }
 }
