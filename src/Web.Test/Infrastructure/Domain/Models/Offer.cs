@@ -7,6 +7,7 @@ namespace Web.Test.Infrastructure.Domain.Models
 {
     public class Offer
     {
+        public long Id {get;set;}
         public string Name {get; set;}
         public string Description{get; set;}
         public List<Skill> RequaredSkills {get; set;}

@@ -10,9 +10,9 @@ namespace Web.Test.Infrastructure.Domain.Contracts
     public interface IOfferManager
     {
         Result<IEnumerable<Offer>> GetList(int page, int size, string search);
-        Result<Offer> GetOffer(string id);
+        Result<Offer> GetOffer(long id);
+        VoidResult UpdateOffer(Offer offer);
+        VoidResult DeleteOffer(long id);
         VoidResult AddOffer(Offer offer);
-        VoidResult UpdateOffer(string id, Offer offer);
-        VoidResult DeleteOffer(string id);
     }
 }

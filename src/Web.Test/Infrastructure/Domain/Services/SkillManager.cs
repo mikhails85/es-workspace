@@ -4,15 +4,31 @@ using System.Linq;
 using System.Web;
 using Web.Test.Infrastructure.Common.Results;
 using Web.Test.Infrastructure.Domain.Contracts;
+using Web.Test.Infrastructure.Domain.Contracts.Integration;
 using Web.Test.Infrastructure.Domain.Models;
+using Web.Test.Infrastructure.Integration.MySQL.Queries;
 
 namespace Web.Test.Infrastructure.Domain.Services
 {
     public class SkillManager : ISkillManager
     {
-        public Result<IEnumerable<Skill>> GetList(int page, int size, string search)
+        private readonly IDbContext context;
+        private readonly IQueueManager queue;
+
+        public SkillManager (IDbContext context, IQueueManager queue)
         {
-            throw new NotImplementedException();
+             this.context = context;
+             this.queue = queue;   
+        }
+
+        public Result<IEnumerable<Skill>> GetSkillList()
+        {
+            return this.context.Query(new GetSkills());
+        }
+
+        public VoidResult AddSkill(Skill skill)
+        {
+            return this.context.Query(new AddSkill(skill));
         }
     }
 }

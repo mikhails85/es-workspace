@@ -5,6 +5,7 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Web.Test.Configuration;
 using Web.Test.Infrastructure.Domain.Contracts;
+using Web.Test.Infrastructure.Domain.Models;
 
 namespace Web.Test.Controllers
 {
@@ -12,9 +13,15 @@ namespace Web.Test.Controllers
     public class SkillsController : Controller
     {
         [HttpGet("[action]")]
-        public IActionResult List(int page, int size, string search = null)
+        public IActionResult List()
         {
-            return this.Result(this.Service<ISkillManager>().GetList(page, size, search));
+            return this.Result(this.Service<ISkillManager>().GetSkillList());
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult AddSkill(Skill skill)
+        {
+            return this.Result(this.Service<ISkillManager>().AddSkill(skill));
         }
     }
 }

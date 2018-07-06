@@ -29,3 +29,11 @@ https://ipfs.io/ipfs/QmVUvLMxTEaVBpiQBiBBdnv7ZTwt7pv8BxNhpPCMixuRBT/docs/app.htm
 https://pro-gram.ru/password-grub2-ubuntu.html
 
 https://medium.com/dapper-net/multiple-mapping-d36c637d14fa
+
+https://learning-continuous-deployment.github.io/docker/images/dockerfile/2015/04/24/exporting-docker-container/
+
+https://docs.docker.com/registry/configuration/#override-specific-configuration-options
+https://techsparx.com/software-development/docker/deploy-images-without-registry.html
+
+
+https://www.youtube.com/watch?v=wiSdPZDkg50

@@ -9,6 +9,8 @@ namespace Web.Test.Infrastructure.Domain.Contracts
 {
     public interface ISkillManager
     {
-        Result<IEnumerable<Skill>> GetList(int page, int size, string search);
+        Result<IEnumerable<Skill>> GetSkillList();
+
+        VoidResult AddSkill(Skill skill);
     }
 }

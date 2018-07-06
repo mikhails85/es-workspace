@@ -19,7 +19,7 @@ namespace Web.Test.Controllers
         }
 
         [HttpGet("{id}/[action]")]
-        public IActionResult GetOffer(string id)
+        public IActionResult GetOffer(long id)
         {
             return this.Result(this.Service<IOfferManager>().GetOffer(id));
         }
@@ -31,13 +31,13 @@ namespace Web.Test.Controllers
         }
 
         [HttpPut("{id}/[action]")]
-        public IActionResult UpdateOffer(string id, Offer offer)
+        public IActionResult UpdateOffer(Offer offer)
         {
-            return this.Result(this.Service<IOfferManager>().UpdateOffer(id, offer));
+            return this.Result(this.Service<IOfferManager>().UpdateOffer(offer));
         }
 
         [HttpDelete("{id}/[action]")]
-        public IActionResult DeleteOffer(string id)
+        public IActionResult DeleteOffer(long id)
         {
             return this.Result(this.Service<IOfferManager>().DeleteOffer(id));
         }
