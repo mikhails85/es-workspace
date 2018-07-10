@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Web.Test.Infrastructure.Common.Results;
+using Web.Test.Infrastructure.Common.Wrappers;
 using Web.Test.Infrastructure.Domain.Contracts;
 using Web.Test.Infrastructure.Domain.Contracts.Integration;
 using Web.Test.Infrastructure.Domain.Models;
+using Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries;
 using Web.Test.Infrastructure.Integration.MySQL.Queries;
 
 namespace Web.Test.Infrastructure.Domain.Services
@@ -14,21 +16,28 @@ namespace Web.Test.Infrastructure.Domain.Services
     {
         private readonly IDbContext context;
         private readonly IQueueManager queue;
+        private readonly IESStorage esstorage;
 
-        public OfferManager (IDbContext context, IQueueManager queue)
+        public OfferManager (IDbContext context, IQueueManager queue, IESStorage esstorage)
         {
              this.context = context;
              this.queue = queue;   
+             this.esstorage = esstorage;
         }
 
         public VoidResult AddOffer(Offer offer)
         {
             var result = this.context.Query(new AddOffer(offer));
             if(result.Success)
-            {
-                context.Save();
-                offer.Id = result.Value;
-                queue.SendMessage("insert.offer", offer);
+            {                
+                offer.Id = result.Value;                
+                foreach(var skill in offer.RequaredSkills)
+                {
+                   this.context.Query(new AddOfferSkill(offer.Id, skill.Id));     
+                }
+
+                context.Save();                
+                queue.SendMessage("offers", new CRUDWrapper<Offer>{ Action = CRUDActionType.Create, Entity = offer });
             }            
             return result;
         }
@@ -43,14 +52,20 @@ namespace Web.Test.Infrastructure.Domain.Services
 
             var offer = result.Value;
 
+            var delSkillResult = this.context.Query(new DeleteOfferSkills(id));
+            if(!delSkillResult.Success)
+            {
+                return delSkillResult;
+            }    
+
             var deleteResult = this.context.Query(new DeleteOffer(id));
             if(!deleteResult.Success)
             {
                 return deleteResult;
             }
 
-            this.context.Save();
-            queue.SendMessage("delete.offer", offer);
+            this.context.Save();            
+            queue.SendMessage("offers", new CRUDWrapper<Offer>{ Action = CRUDActionType.Delete, Entity = offer });
 
             return deleteResult;
         }
@@ -70,8 +85,8 @@ namespace Web.Test.Infrastructure.Domain.Services
             var updateResult = this.context.Query(new UpdateOffer(dbOffer));
             if(updateResult.Success)
             {
-                context.Save();
-                queue.SendMessage("update.offer", offer);
+                context.Save();                
+                queue.SendMessage("offers", new CRUDWrapper<Offer>{ Action = CRUDActionType.Update, Entity = offer });
             }            
             return updateResult;
         }
@@ -83,7 +98,7 @@ namespace Web.Test.Infrastructure.Domain.Services
 
         public Result<IEnumerable<Offer>> GetList(int page, int size, string search)
         {
-            throw new NotImplementedException();
+            return this.esstorage.Get<Offer>().Query(new SearchOffers(page, size, search));
         }
     }
 }

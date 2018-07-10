@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Web.Test.Infrastructure.Common.Results;
+using Web.Test.Infrastructure.Common.Wrappers;
 using Web.Test.Infrastructure.Domain.Contracts;
 using Web.Test.Infrastructure.Domain.Contracts.Integration;
 using Web.Test.Infrastructure.Domain.Models;
+using Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries;
 using Web.Test.Infrastructure.Integration.MySQL.Queries;
 
 namespace Web.Test.Infrastructure.Domain.Services
@@ -14,11 +16,13 @@ namespace Web.Test.Infrastructure.Domain.Services
     {
         private readonly IDbContext context;
         private readonly IQueueManager queue;
+        private readonly IESStorage esstorage;
 
-        public EmployeeManager (IDbContext context, IQueueManager queue)
+        public EmployeeManager (IDbContext context, IQueueManager queue, IESStorage esstorage)
         {
              this.context = context;
              this.queue = queue;   
+             this.esstorage = esstorage;
         }
 
         public VoidResult AddEmployee(Employee profile)
@@ -28,7 +32,7 @@ namespace Web.Test.Infrastructure.Domain.Services
             {
                 context.Save();
                 profile.Id = result.Value;
-                queue.SendMessage("insert.employee", profile);
+                queue.SendMessage("employees", new CRUDWrapper<Employee>{ Action = CRUDActionType.Create, Entity = profile });
             }            
             return result;
         }
@@ -46,9 +50,16 @@ namespace Web.Test.Infrastructure.Domain.Services
             var projectResult = this.context.Query(new AddProject(project));
             if(projectResult.Success)
             {
+                project.Id = projectResult.Value;
+
+                foreach(var skill in project.UsedSkills)
+                {
+                   this.context.Query(new AddProjectSkill(project.Id, skill.Id));     
+                }
+
                 context.Save();
                 profile.Projects.Add(project);
-                queue.SendMessage("update.employee", profile);
+                queue.SendMessage("employees", new CRUDWrapper<Employee>{ Action = CRUDActionType.Update, Entity = profile });
             }           
 
             return projectResult;            
@@ -64,6 +75,15 @@ namespace Web.Test.Infrastructure.Domain.Services
 
             var profile = result.Value;
 
+            foreach(var proj in profile.Projects)
+            {
+                var delSkillResult = this.context.Query(new DeleteProjectSkills(proj.Id));
+                if(!delSkillResult.Success)
+                {
+                    return delSkillResult;
+                }    
+            }
+
             var delProjResult = this.context.Query(new DeleteEmployeeProjects(id));
             if(!delProjResult.Success)
             {
@@ -77,7 +97,7 @@ namespace Web.Test.Infrastructure.Domain.Services
             }
 
             this.context.Save();
-            queue.SendMessage("delete.employee", profile);
+            queue.SendMessage("employees", new CRUDWrapper<Employee>{ Action = CRUDActionType.Delete, Entity = profile });
 
             return delEmplResult;
         }
@@ -92,6 +112,14 @@ namespace Web.Test.Infrastructure.Domain.Services
 
             var profile = result.Value;
 
+            
+            var delSkillResult = this.context.Query(new DeleteProjectSkills(projectId));
+            if(!delSkillResult.Success)
+            {
+                return delSkillResult;
+            }    
+            
+
             var delProjResult = this.context.Query(new DeleteProject(projectId));
             if(!delProjResult.Success)
             {
@@ -100,9 +128,8 @@ namespace Web.Test.Infrastructure.Domain.Services
 
             this.context.Save();
 
-            profile.Projects = profile.Projects.Where(x=>x.Id != projectId).ToList(); 
-            queue.SendMessage("update.employee", profile);
-
+            profile.Projects = profile.Projects.Where(x=>x.Id != projectId).ToList();             
+            queue.SendMessage("employees", new CRUDWrapper<Employee>{ Action = CRUDActionType.Update, Entity = profile });
             return delProjResult;
         }
 
@@ -124,7 +151,7 @@ namespace Web.Test.Infrastructure.Domain.Services
             if(updateResult.Success)
             {
                 context.Save();
-                queue.SendMessage("update.employee", profile);
+                queue.SendMessage("employees", new CRUDWrapper<Employee>{ Action = CRUDActionType.Update, Entity = profile });
             }            
             return updateResult;
         }
@@ -136,7 +163,7 @@ namespace Web.Test.Infrastructure.Domain.Services
         
         public Result<IEnumerable<Employee>> GetEmployeeList(int page, int size, string search)
         {
-            throw new NotImplementedException();
+            return this.esstorage.Get<Employee>().Query(new SearchEmployees(page, size, search));
         }
         
     }

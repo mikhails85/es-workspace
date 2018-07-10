@@ -6,18 +6,18 @@ using Dapper;
 using Web.Test.Infrastructure.Common.Results;
 using Web.Test.Infrastructure.Common.Results.Errors;
 using Web.Test.Infrastructure.Domain.Contracts.Integration;
-using Web.Test.Infrastructure.Domain.Models;
-using Web.Test.Infrastructure.Integration.MySQL.Errors;
 
 namespace Web.Test.Infrastructure.Integration.MySQL.Queries
 {
-    public class AddProject : Result<long>, IDbQuery
+    public class AddOfferSkill: Result<long>, IDbQuery
     {
-        private readonly Project project;
+        private readonly long skillId;
+        private readonly long offerId;
 
-        public AddProject(Project project)
+        public AddOfferSkill(long offerId, long skillId)
         {
-            this.project = project;
+            this.offerId = offerId;
+            this.skillId = skillId;
         }
 
         public void Execute(IDbContext context)
@@ -25,8 +25,8 @@ namespace Web.Test.Infrastructure.Integration.MySQL.Queries
             try
             {
                 var dbConnection = context.GetConnection();            
-                var result = dbConnection.Query<long>(@"INSERT INTO Projects (EmployeeId, Name, Description) VALUES (@EmployeeId, @Name, @Description);
-                                                          SELECT CAST(LAST_INSERT_ID() AS UNSIGNED INTEGER);", project);                                                     
+                var result = dbConnection.Query<long>(@"INSERT INTO OffersSkills (OfferId, SkillId) VALUES (@OfferId, @SkillId);
+                                                          SELECT CAST(LAST_INSERT_ID() AS UNSIGNED INTEGER);", new{OfferId=offerId, SkillId = skillId});                                                     
                 SetValue(result.FirstOrDefault());
             }
             catch(Exception ex)

@@ -25,7 +25,7 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes
                 )
                 .Mappings(m => m                    
                     .Map<ESEmployee>(mm => mm
-                        .AutoMap()
+                        .AutoMap()                        
                     )
                 )
             );

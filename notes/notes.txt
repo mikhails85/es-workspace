@@ -37,3 +37,6 @@ https://techsparx.com/software-development/docker/deploy-images-without-registry
 
 
 https://www.youtube.com/watch?v=wiSdPZDkg50
+
+
+https://www.elastic.co/guide/en/elasticsearch/reference/master/jvm-options.html

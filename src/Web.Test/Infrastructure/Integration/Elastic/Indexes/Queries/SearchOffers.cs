@@ -5,6 +5,7 @@ using System.Web;
 using Web.Test.Infrastructure.Common.Results;
 using Web.Test.Infrastructure.Domain.Contracts.Integration;
 using Web.Test.Infrastructure.Domain.Models;
+using Web.Test.Infrastructure.Integration.Elastic.Indexes.Errors;
 using Web.Test.Infrastructure.Integration.Elastic.Indexes.Models;
 
 namespace Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries
