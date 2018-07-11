@@ -38,7 +38,14 @@ namespace Web.Test.Infrastructure.Integration.RabbitMQ
             factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
             
             this.connection = factory.CreateConnection();
-            this.channel = connection.CreateModel();            
+            this.channel = connection.CreateModel();   
+            
+            this.channel.QueueDeclare(queue: this.handler.Queue,
+                                     durable: false,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
+            
             this.channel.BasicQos(prefetchSize: 0, prefetchCount: this.handler.PrefetchCount, global: false);
 
             this.handler.OnStarting();                        

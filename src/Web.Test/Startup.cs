@@ -60,7 +60,8 @@ namespace Web.Test
             app.UseCookiePolicy();
 
             app.UseApiExtension();
-
+            app.UseSyncDataBroker();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

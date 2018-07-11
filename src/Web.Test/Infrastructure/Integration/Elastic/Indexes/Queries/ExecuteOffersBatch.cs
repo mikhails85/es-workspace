@@ -25,9 +25,18 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries
             var toUpdate = this.actions.Where(x=>x.Action == CRUDActionType.Update).Select(x=>x.Entity).ToList();
 
             var client = context.GetClient();
-            client.Bulk(x=>x.IndexMany(toCreate,(a,b)=>{return a.Id(b.Id);})
-                            .UpdateMany(toUpdate,(a,b)=>{return a.Id(b.Id);})
-                            .DeleteMany(toDelete,(a,b)=>{return a.Id(b.Id);}));
+            client.Bulk(x => {
+                if(toCreate.Any())                
+                    x=x.IndexMany(toCreate,(a,b)=>{return a.Id(b.Id);});
+
+                if(toUpdate.Any())
+                    x=x.UpdateMany(toUpdate,(a,b)=>{return a.Id(b.Id);});
+                    
+                 if(toDelete.Any())
+                    x=x.DeleteMany(toDelete,(a,b)=>{return a.Id(b.Id);});    
+                    
+                return x;
+            });
         }
     }
 }

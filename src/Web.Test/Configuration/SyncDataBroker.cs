@@ -40,11 +40,17 @@ namespace Web.Test.Configuration
 
         private static VoidResult EmployeesBatchHandler(IEnumerable<CRUDWrapper<Employee>> batch) 
         {
+            if(!batch.Any())
+                return new VoidResult();
+                
             return provider.GetService<IESStorage>().Get<Employee>().Query(new ExecuteEmployeesBatch(batch));
         }
 
         private static VoidResult OffersBatchHandler(IEnumerable<CRUDWrapper<Offer>> batch) 
         {
+             if(!batch.Any())
+                return new VoidResult();
+                
             return provider.GetService<IESStorage>().Get<Offer>().Query(new ExecuteOffersBatch(batch));
         }
     }
