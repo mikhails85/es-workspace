@@ -31,7 +31,7 @@ namespace Web.Test.Controllers
         }
 
         [HttpPut("{id}/[action]")]
-        public IActionResult UpdateOffer(Offer offer)
+        public IActionResult UpdateOffer([FromQuery]long id, Offer offer)
         {
             return this.Result(this.Service<IOfferManager>().UpdateOffer(offer));
         }
@@ -39,6 +39,7 @@ namespace Web.Test.Controllers
         [HttpDelete("{id}/[action]")]
         public IActionResult DeleteOffer(long id)
         {
+            
             return this.Result(this.Service<IOfferManager>().DeleteOffer(id));
         }
     }
