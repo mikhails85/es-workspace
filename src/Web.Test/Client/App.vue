@@ -60,7 +60,7 @@ export default {
   data () {
     return {
       nav: nav.items,
-      itemsCount: 3
+      itemsCount: 1
     }
   },
   computed: {

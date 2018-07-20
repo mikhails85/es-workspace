@@ -40,3 +40,8 @@ https://www.youtube.com/watch?v=wiSdPZDkg50
 
 
 https://www.elastic.co/guide/en/elasticsearch/reference/master/jvm-options.html
+
+
+https://medium.com/codingthesmartway-com-blog/vue-js-2-quickstart-tutorial-2017-246195cfbdd2
+
+https://bootstrap-vue.js.org/docs/components/table/#complete-example
