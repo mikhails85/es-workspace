@@ -6,15 +6,19 @@ export default {
       icon: 'icon-speedometer'      
     },
     {
-      name: 'todo',
-      url: '/todo',
-      icon: 'icon-drop'
+      name: 'Skills',
+      url: '/skills',
+      icon: 'icon-puzzle'
     },
     {
-      name: 'forecast',
-      url: '/forecast',
-      icon: 'icon-drop'
-    }
-    
+      name: 'Offers',
+      url: '/offers',
+      icon: 'icon-briefcase'
+    },
+    {
+      name: 'Employees',
+      url: '/employees',
+      icon: 'icon-user'
+    }    
   ]
 }
