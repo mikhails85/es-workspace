@@ -28,7 +28,14 @@ namespace Web.Test.Infrastructure.Domain.Services
 
         public VoidResult AddSkill(Skill skill)
         {
-            return this.context.Query(new AddSkill(skill));
+            var result = this.context.Query(new AddSkill(skill));
+            
+            if(result.Success)
+            {
+                this.context.Save();
+            }
+            
+            return result;
         }
     }
 }

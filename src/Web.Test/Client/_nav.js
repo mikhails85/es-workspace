@@ -7,7 +7,7 @@ export default {
     },
     {
       name: 'Skills',
-      url: '/skills',
+      url: 'skills',
       icon: 'icon-puzzle'
     },
     {

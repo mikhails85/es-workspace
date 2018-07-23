@@ -19,7 +19,7 @@ namespace Web.Test.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult AddSkill(Skill skill)
+        public IActionResult AddSkill([FromBody]Skill skill)
         {
             return this.Result(this.Service<ISkillManager>().AddSkill(skill));
         }

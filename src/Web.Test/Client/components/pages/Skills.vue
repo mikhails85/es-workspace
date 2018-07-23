@@ -5,7 +5,7 @@
         Table
       </div>
       <div class="card-body">
-        <v-table :tblData="items" :tblFields="fields" :onCreate="create" :onDelete="remove" ></v-table>        
+        <v-table ref="table" :tblData="items" :tblFields="fields" :onCreate="create" :onDelete="remove" ></v-table>        
         <b-modal id="modalAdd" @hide="resetAddModal" @ok="addItem" title="New item">
             <v-form :frm-model="modalAdd" :frm-fields="modelFields"></v-form>
         </b-modal>
@@ -15,8 +15,8 @@
 </template>
 <script>
 import axios from 'axios'
-import table from './controls/Table.vue'
-import form from './controls/Form.vue'
+import table from '../controls/Table.vue'
+import form from '../controls/Form.vue'
 export default {
   name: 'Skills',
   components: {
@@ -27,13 +27,12 @@ export default {
     return {
       items : [],
       fields: [
-                  { key: 'Id', label: 'ID', sortable: true },
-                  { key: 'Name', label: 'Name', sortable: true }                                      
+                  { key: 'id', label: 'ID', sortable: true },
+                  { key: 'name', label: 'Name', sortable: true }                  
               ],
       modelFields:[          
           {key:'name', id:'SkillName', type:'text', label:'Skill', placeholder:"Enter skill" }
-      ],
-      modalEdit: { id: 0, name: ''},
+      ],      
       modalAdd: { id: 0, name: ''}
     }
   },
@@ -48,7 +47,9 @@ export default {
     },    
     addItem(evt){
         evt.preventDefault();  
-        axios.post('/api/skills/addskill',this.addItem)
+        console.log(JSON.stringify(this.modalAdd, null, 2))     
+        axios.post('/api/skills/addskill', { Name : this.modalAdd.name} )
+        this.refresh()
         this.$root.$emit('bv::hide::modal', 'modalAdd', null)
     },
     
@@ -58,15 +59,19 @@ export default {
     remove(item){
       console.log('delete item')
       console.log(JSON.stringify(item, null, 2))
+    },
+    refresh(){
+      let self = this  
+      axios.get('/api/skills/list').then(r=>{          
+          if(r.data.success)
+          {  
+              self.$refs.table.refresh(r.data.value);
+          }
+      })  
     }
   },
-  created() {
-      axios.get('/api/skills/list').then(r=>{
-          if(r.data.Success)
-          {
-              this.items = r.data.Value
-          }
-      })        
+  mounted () {
+     this.refresh()       
   }
 }
 </script>
