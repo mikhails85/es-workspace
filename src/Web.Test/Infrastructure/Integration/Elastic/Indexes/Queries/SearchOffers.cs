@@ -30,6 +30,7 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries
             var searchResponse = client.Search<ESOffer>(s => s
                 .From(page)
                 .Size(size)
+                .Type<ESOffer>()
                 .Query(q => q
                      .MultiMatch(mp => mp.Fields(f => f.Fields(e => e.Id, e => e.Name)).Query(search))
                 )
