@@ -10,7 +10,7 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes
 {
     public class OfferIndex : ESIndex<Offer>
     {
-        private const string Index ="Offers";
+        private const string Index ="offers";
 
         public OfferIndex(ElasicStorage storage) 
             : base(storage, Index)

@@ -11,7 +11,7 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes
 {
     public class EmployeeIndex :  ESIndex<Employee>
     {
-        private const string Index ="Employees";
+        private const string Index ="employees";
         public EmployeeIndex(ElasicStorage storage)        
         :base(storage, Index)
         {            
