@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Nest;
 using Web.Test.Infrastructure.Common.Results;
 using Web.Test.Infrastructure.Domain.Contracts.Integration;
 using Web.Test.Infrastructure.Domain.Models;
@@ -29,10 +30,9 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries
             var client = context.GetClient();
             var searchResponse = client.Search<ESOffer>(s => s
                 .From(page)
-                .Size(size)
-                .Type<ESOffer>()
+                .Size(size)                
                 .Query(q => q
-                     .MultiMatch(mp => mp.Fields(f => f.Fields(e => e.Id, e => e.Name)).Query(search))
+                     .MultiMatch(mp => mp.Fields(f => f.Field(e => e.Id).Field(e => e.Name)).Type(TextQueryType.MostFields).Query(search))
                 )
             );
 
