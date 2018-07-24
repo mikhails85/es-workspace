@@ -23,7 +23,7 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries
         {
             this.page = page;
             this.size = size;
-            this.search = search;
+            this.search = search?? string.Empty;
         }
         public void Execute(IESIndex<Offer> context)
         {
@@ -31,10 +31,12 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries
             var searchResponse = client.Search<ESOffer>(s => s
                 .From(page)
                 .Size(size)                
-                .Query(q => q
-                     .MultiMatch(mp => mp.Fields(f => f.Field(e => e.Id).Field(e => e.Name)).Type(TextQueryType.MostFields).Query(search))
-                )
-            );
+                .Query(q => q				// define query
+                    .MultiMatch(mp => mp			// of type MultiMatch
+                        .Query(search)			// pass text
+                        .Fields(f => f			// define fields to search against
+                            .Fields(f1 => f1.Id, f2 => f2.Name, f3 => f3.Description))))
+                        );
 
             if (!searchResponse.IsValid)
             {
