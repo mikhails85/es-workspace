@@ -25,13 +25,13 @@ namespace Web.Test.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult AddOffer(Offer offer)
+        public IActionResult AddOffer([FromBody] Offer offer)
         {
             return this.Result(this.Service<IOfferManager>().AddOffer(offer));
         }
 
         [HttpPut("{id}/[action]")]
-        public IActionResult UpdateOffer([FromQuery]long id, Offer offer)
+        public IActionResult UpdateOffer([FromQuery]long id, [FromBody] Offer offer)
         {
             return this.Result(this.Service<IOfferManager>().UpdateOffer(offer));
         }

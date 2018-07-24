@@ -2,12 +2,12 @@
   <div class="animated fadeIn">
     <div class="card">
       <div class="card-header">
-        Table
+        Skills
       </div>
       <div class="card-body">
-        <v-table ref="table" :tblData="items" :tblFields="fields" :onCreate="create" :onDelete="remove" ></v-table>        
+        <v-table ref="table" :tbl-data="items" :tbl-fields="fields" :on-create="create" ></v-table>        
         <b-modal id="modalAdd" @hide="resetAddModal" @ok="addItem" title="New item">
-            <v-form :frm-model="modalAdd" :frm-fields="modelFields"></v-form>
+            <v-form :frm-model="newSkill" :frm-fields="formFields"></v-form>
         </b-modal>
       </div>  
     </div>
@@ -30,35 +30,24 @@ export default {
                   { key: 'id', label: 'ID', sortable: true },
                   { key: 'name', label: 'Name', sortable: true }                  
               ],
-      modelFields:[          
+      formFields:[          
           {key:'name', id:'SkillName', type:'text', label:'Skill', placeholder:"Enter skill" }
       ],      
-      modalAdd: { id: 0, name: ''}
+      newSkill: { name: ''}
     }
   },
-  methods:{
-    resetEditModal () {
-        this.modalEdit.id = 0
-        this.modalEdit.name = ''
-    },
-    resetAddModal () {
-        this.modalAdd.id = 0
-        this.modalAdd.name = ''
+  methods:{    
+    resetAddModal () {        
+        this.newSkill.name = ''
     },    
     addItem(evt){
-        evt.preventDefault();  
-        console.log(JSON.stringify(this.modalAdd, null, 2))     
-        axios.post('/api/skills/addskill', { Name : this.modalAdd.name} )
+        evt.preventDefault();          
+        axios.post('/api/skills/addskill', { Name : this.newSkill.name} )
         this.refresh()
         this.$root.$emit('bv::hide::modal', 'modalAdd', null)
-    },
-    
+    },    
     create(){      
       this.$root.$emit('bv::show::modal', 'modalAdd', null)
-    },    
-    remove(item){
-      console.log('delete item')
-      console.log(JSON.stringify(item, null, 2))
     },
     refresh(){
       let self = this  
