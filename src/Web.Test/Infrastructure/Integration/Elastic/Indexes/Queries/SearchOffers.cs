@@ -31,11 +31,11 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries
             var searchResponse = client.Search<ESOffer>(s => s
                 .From(page)
                 .Size(size)                
-                .Query(q => q				// define query
-                    .MultiMatch(mp => mp			// of type MultiMatch
-                        .Query(search)			// pass text
-                        .Fields(f => f			// define fields to search against
-                            .Fields(f1 => f1.Id, f2 => f2.Name, f3 => f3.Description))))
+                .Query(q => q
+                    .MultiMatch(mp => mp
+                        .Query(search)	
+                        .Fields(f => f	
+                            .Fields(f1 => f1.Name))))
                         );
 
             if (!searchResponse.IsValid)

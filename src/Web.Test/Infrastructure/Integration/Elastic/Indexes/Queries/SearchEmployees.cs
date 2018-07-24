@@ -31,8 +31,11 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes.Queries
                 .From(page)
                 .Size(size)
                 .Query(q => q
-                     .MultiMatch(mp => mp.Fields(f => f.Fields(e => e.Id, e => e.Name, e => e.JobTitle)).Query(search))
-                )
+                    .MultiMatch(mp => mp
+                        .Query(search)	
+                        .Fields(f => f	
+                            .Fields(f1 => f1.Name, f2 => f2.JobTitle))))
+                        
             );
 
             if (!searchResponse.IsValid)
