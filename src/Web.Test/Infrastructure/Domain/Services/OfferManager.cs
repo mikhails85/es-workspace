@@ -30,7 +30,11 @@ namespace Web.Test.Infrastructure.Domain.Services
             var result = this.context.Query(new AddOffer(offer));
             if(result.Success)
             {                
-                offer.Id = result.Value;                
+                offer.Id = result.Value;    
+                if(offer.RequaredSkills == null)          
+                {
+                    offer.RequaredSkills = new List<Skill>();
+                }  
                 foreach(var skill in offer.RequaredSkills)
                 {
                    this.context.Query(new AddOfferSkill(offer.Id, skill.Id));     
