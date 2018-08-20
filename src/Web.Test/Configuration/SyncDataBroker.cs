@@ -50,7 +50,7 @@ namespace Web.Test.Configuration
         {
              if(!batch.Any())
                 return new VoidResult();
-                
+            Console.WriteLine("OFFER BATCH:"+batch.Count());     
             return provider.GetService<IESStorage>().Get<Offer>().Query(new ExecuteOffersBatch(batch));
         }
     }

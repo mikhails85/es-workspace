@@ -87,6 +87,49 @@ namespace ES.Tests.Tests
             Console.WriteLine($"Index removed:'{!this.IndexExists(this.Index)}'");            
         }
         
+        public void AggregationsTest()
+        {   
+            Console.WriteLine($"Try create index:'{this.Index}'");
+            CreateIndex<Offer>(this.Index);            
+            Console.WriteLine($"Index created:'{this.IndexExists(this.Index)}'");
+            
+            for(var i=1; i<=10; i++)
+            {
+                Console.WriteLine($"Try add to index document {i}");
+                var result = this.AddToIndex(
+                                    new Offer{ Index =i, Title = $"Offer {i}", Description = $"Offer {i} Description", 
+                                        Skills= new List<Skill>{
+                                                new Skill{Id=1, Name = "C#" }, 
+                                                new Skill{Id=2, Name = "Js" }, 
+                                                new Skill{Id=3, Name = "Vue.js"}, 
+                                                new Skill{Id=4, Name = "MySql"} 
+                                                }
+                                        }, this.Index);
+            
+                if (!result.IsValid)
+                    Console.WriteLine($"Error: {result.DebugInformation}");                
+            }
+            
+            Console.WriteLine($"Try Aggregat");
+            var aggregations = this.Client.Search<Offer>(s=>s
+                                                            .Aggregations(a => a
+                                                            .Terms("skills", ta => ta
+                                                                .Field(f=>f.Skills.First().Id)
+                                                            )
+                                                        ));
+            if (!aggregations.IsValid)
+                Console.WriteLine($"Error: {aggregations.DebugInformation}");            
+                
+            foreach(var bucket in aggregations.Aggregations.Terms("skills").Buckets)         
+            {
+               Console.WriteLine($"key: {bucket.Key}, count: {bucket.DocCount}");
+            }
+                         
+            Console.WriteLine($"Try remove index:'{this.Index}'");
+            this.RemoveIndex(this.Index);            
+            Console.WriteLine($"Index removed:'{!this.IndexExists(this.Index)}'");            
+        }
+        
         private void CreatePercolatorIndex(string index = null)
         {
             var createIndexResponse = this.Client.CreateIndex(index ?? this.Index, c => c

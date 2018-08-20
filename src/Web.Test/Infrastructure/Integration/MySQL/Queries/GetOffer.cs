@@ -31,7 +31,7 @@ namespace Web.Test.Infrastructure.Integration.MySQL.Queries
                             FROM Offers                            
                             LEFT JOIN OffersSkills ON Offers.Id = OffersSkills.OfferId
                             LEFT JOIN Skills ON OffersSkills.SkillId = Skills.Id
-                            WHERE Offer.Id = @Id;", Mapping, new {Id = offerId });  
+                            WHERE Offers.Id = @Id;", Mapping, new {Id = offerId });  
 
                 base.SetValue(offers[offerId]);
             }

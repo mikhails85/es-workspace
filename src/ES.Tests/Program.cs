@@ -8,7 +8,7 @@ namespace ES.Tests
         static void Main(string[] args)
         {
             var simpleTest = new SimpleTest();
-            simpleTest.ReversSearchingTest(); 
+            simpleTest.AggregationsTest(); 
         }
     }
 }

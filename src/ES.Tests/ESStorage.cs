@@ -14,6 +14,7 @@ namespace ES.Tests
             this.Index = index;      
             var node = new Uri("http://localhost:9200");
             var settings = new ConnectionSettings(node).DefaultIndex(this.Index);
+            settings.DisableDirectStreaming();
             this.Client = new ElasticClient(settings);
         }
         

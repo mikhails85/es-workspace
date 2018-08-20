@@ -17,12 +17,17 @@ namespace Web.Test.Infrastructure.Integration.Elastic.Indexes.Models
 
         public static implicit operator ESOffer(Offer offer)
         {
+            if(offer.RequaredSkills == null)
+            {
+               offer.RequaredSkills = new List<Skill>();
+            }
+            
             ESOffer o = new ESOffer();            
             o.Id = offer.Id;
             o.Name = offer.Name;
             o.Description = offer.Description;
             o.RequaredSkills = offer.RequaredSkills;
-
+           
             foreach(var skill in offer.RequaredSkills)    
             {
                 o.Query &= new MatchQuery 

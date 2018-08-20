@@ -20,7 +20,7 @@ import form from '../controls/Form.vue'
 
 let page =0;
 let size = 50;
-let searching = null;
+let searching = '';
 
 export default {
     name:'Offers',
@@ -59,7 +59,7 @@ export default {
         this.$router.push({name:'Offer', params:{id:item.id}})
       },
       remove(item){
-        axios.delete('/api/offers/'+item.id)
+        axios.delete('/api/offers/'+item.id+'/deleteoffer')
         this.refresh()
       },
       search(text){
